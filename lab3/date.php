@@ -5,7 +5,7 @@ declare(strict_types=1);
  * ЗАДАНИЕ 1
  */
 $now = time();
-// Замени на свою дату: mktime(час, мин, сек, месяц, день, год)
+
 $birthday = mktime(0, 0, 0, 5, 20, 2026); 
 $dateArray = getdate();
 $hour = $dateArray['hours'];
@@ -51,4 +51,5 @@ $welcome = getWelcomeMessage($hour);
     echo "До моего дня рождения осталось: $days дн., $hours час., $minutes мин., $seconds сек.";
     ?>
 </body>
+
 </html>
