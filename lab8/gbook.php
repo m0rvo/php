@@ -1,7 +1,20 @@
 <?php
 declare(strict_types=1);
-require_once 'config.php';
-$connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+/* ЗАДАНИЕ 1
+- Подключитесь к серверу MySQL, выберите базу данных
+- Установите кодировку по умолчанию для текущего соединения
+- Проверьте, была ли корректным образом отправлена форма
+- Если она была отправлена: отфильтруйте полученные данные 
+  с помощью функций trim(), htmlspecialchars() и mysqli_real_escape_string(),
+  сформируйте SQL-оператор на вставку данных в таблицу msgs и выполните его с помощью функции mysqli_query(). 
+  После этого с помощью функции header() выполните перезапрос страницы, 
+  чтобы избавиться от информации, переданной через форму
+*/
+
+require_once 'confige.php'; //db data
+$connection = mysqli_connect(HOST, USER, PASSWORD, DB);
+
 
 if (!$connection)
   die("Ошибка подключения: " . mysqli_connect_error());
@@ -13,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $email = trim(htmlspecialchars(mysqli_real_escape_string($connection, $_POST['email'] ?? '')));
   $msg = trim(htmlspecialchars(mysqli_real_escape_string($connection, $_POST['msg'] ?? '')));
 
+  // msgs insertion
   $query = "INSERT INTO msgs (name, email, msg) VALUES ('$name', '$email', '$msg')";
 
   if (mysqli_query($connection, $query)) {
@@ -22,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Ошибка: " . mysqli_error($connection);
 }
 
+// del check
 if (isset($_GET['delete_id'])) {
 
   $delete_id = (int) $_GET['delete_id'];
@@ -33,6 +48,15 @@ if (isset($_GET['delete_id'])) {
   } else 
     echo "Ошибка удаления: " . mysqli_error($connection);
 }
+
+/*
+ЗАДАНИЕ 3
+- Проверьте, был ли запрос методом GET на удаление записи
+- Если он был: отфильтруйте полученные данные,
+  сформируйте SQL-оператор на удаление записи и выполните его.
+  После этого выполните перезапрос страницы, чтобы избавиться от информации, переданной методом GET
+*/
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -62,12 +86,27 @@ if (isset($_GET['delete_id'])) {
   </form>
 
   <?php
+  /*
+  ЗАДАНИЕ 2
+  - Сформируйте SQL-оператор на выборку всех данных из таблицы
+    msgs в обратном порядке и выполните его. Результат выборки
+    сохраните в переменной.
+  - Закройте соединение с БД
+  -	С помощью функции mysqli_num_rows() получите количество рядов результата выборки и выведите его на экран
+  - В цикле функцией mysqli_fetch_assoc() получите очередной ряд результата выборки в виде ассоциативного массива.
+    Таким образом, используя этот цикл, выведите на экран все сообщения, а также информацию
+    об авторе каждого сообщения. После каджого сообщения сформируйте ссылку для удаления этой
+    записи. Информацию об идентификаторе удаляемого сообщения передавайте методом GET.
+  */
+
+  // msgs query
   $query = "SELECT * FROM msgs ORDER BY id DESC";
   $result = mysqli_query($connection, $query);
 
   if ($result) {
+    echo "<h2>Сообщения</h2>";
     $count = mysqli_num_rows($result);
-    echo "<p>Записей в гостевой книге: $count</p>";
+    echo "<p>Всего сообщений: $count</p>";
 
     while ($row = mysqli_fetch_assoc($result)) {
 
