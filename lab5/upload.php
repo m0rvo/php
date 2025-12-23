@@ -76,11 +76,13 @@
             if (move_uploaded_file($file['tmp_name'], $destination)) {
                 echo '<div class="success">';
                 echo 'Файл успешно загружен!<br>';
-                echo 'Путь: ' . htmlspecialchars($destination) . '<br>';
-                echo 'Имя: ' . htmlspecialchars($newFilename);
+                // Добавляем ссылку. 
+                // target="_blank" заставит браузер открыть фото в новом окне
+                echo 'Посмотреть фото: <a href="' . htmlspecialchars($destination) . '" target="_blank">' . htmlspecialchars($newFilename) . '</a><br>';
+                
+                // А так можно сразу вывести превью (саму картинку), если хочешь удивить препода
+                echo '<br><img src="' . htmlspecialchars($destination) . '" style="max-width: 300px; border: 1px solid #ccc;">';
                 echo '</div>';
-            } else {
-                echo '<div class="error">Ошибка при перемещении файла в каталог ' . htmlspecialchars($uploadDir) . '</div>';
             }
         }
         ?>
@@ -97,4 +99,5 @@
         </p>
     </form>
 </body>
+
 </html>
