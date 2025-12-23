@@ -76,11 +76,10 @@
             if (move_uploaded_file($file['tmp_name'], $destination)) {
                 echo '<div class="success">';
                 echo 'Файл успешно загружен!<br>';
-                // Добавляем ссылку. 
-                // target="_blank" заставит браузер открыть фото в новом окне
+               
                 echo 'Посмотреть фото: <a href="' . htmlspecialchars($destination) . '" target="_blank">' . htmlspecialchars($newFilename) . '</a><br>';
                 
-                // А так можно сразу вывести превью (саму картинку), если хочешь удивить препода
+                
                 echo '<br><img src="' . htmlspecialchars($destination) . '" style="max-width: 300px; border: 1px solid #ccc;">';
                 echo '</div>';
             }
@@ -101,3 +100,4 @@
 </body>
 
 </html>
+
