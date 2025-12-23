@@ -113,7 +113,7 @@ if (isset($_GET['delete_id'])) {
       echo "<div>";
       echo "<p><strong>{$row['name']}</strong> ({$row['email']})</p>";
       echo "<p>{$row['msg']}</p>";
-      echo "<a href='?delete_id={$row['id']}'>Удалить</a></div><hr>";
+      echo "<a href='?delete_id={$row['id']}' onclick='return confirm(\"Вы уверены, что хотите удалить это сообщение?\");'>Удалить</a></div><hr>";
 
     }
   } else
@@ -125,3 +125,4 @@ if (isset($_GET['delete_id'])) {
 </body>
 
 </html>
+
