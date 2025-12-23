@@ -1,15 +1,32 @@
 <?php
 declare(strict_types=1);
 namespace src\Classes;
-require_once 'User.php';
+
+/**
+ * Класс SuperUser расширяет класс User, добавляя административную роль.
+ */
 class SuperUser extends User
 {
-    public $role;
-    public function __construct($name, $login, $password, $role)
-    {
+    /**
+     * Конструктор суперпользователя
+     * * @param string $name Передается в родительский класс
+     * @param string $login Передается в родительский класс
+     * @param string $password Передается в родительский класс
+     * @param string $role Новое свойство, определяющее права (продвигаемое свойство)
+     */
+    public function __construct(
+        string $name, 
+        string $login, 
+        string $password, 
+        public string $role
+    ) {
+        // Вызов конструктора родителя User
         parent::__construct($name, $login, $password);
-        $this->role = $role;
     }
+
+    /**
+     * Переопределенный метод для вывода расширенной информации
+     */
     public function showInfo(): string  
     {
         return "<div class=\"super-user-info\">
