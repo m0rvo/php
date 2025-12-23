@@ -1,5 +1,5 @@
 <?php
-define('DATA_FILE', 'users.txt');
+define('DATA_FILE', 'dp/users.txt');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fname = htmlspecialchars(trim($_POST['fname']));
@@ -49,4 +49,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     ?>
 </body>
+
 </html>
