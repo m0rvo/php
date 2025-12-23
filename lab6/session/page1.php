@@ -1,9 +1,6 @@
 <?php
 declare(strict_types=1);
 
-// Добавляем вызовы для работы сессий без куки
-ini_set("session.use_only_cookies", "0");
-ini_set("session.use_trans_sid", "1");
 
 // Открываем сессию
 session_start();
@@ -30,4 +27,5 @@ include('visited.inc.php');
 ?>
 
 </body>
+
 </html>
